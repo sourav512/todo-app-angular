@@ -1,0 +1,13 @@
+<ul class="list-group w-100" *ngFor="let item of todo">
+    <li class="list-group-item d-flex justify-content-between w-100" [ngClass]="{'bg-success': item.isComplete}">
+        <span [ngClass]="{completedTodo: item.isComplete}">
+            {{item.title}}
+        </span>
+        <span>
+            {{item.date | date: "dd MMM yyyy"}}
+        </span>
+        <span (click)="handleDelete(item)">
+            <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </span>
+    </li>
+</ul>

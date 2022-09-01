@@ -7,42 +7,39 @@ import { Todo } from "./../model/Todo";
 })
 export class TodoService {
   todos:Todo[];
+  completedTodos:Todo[];
   constructor() {
-    this.todos = [
-      {
-        id:'111',
-        title: "learn c++",
-        isComplete: true,
-        date: new Date()
-      },
-      {
-        id:'333',
-        title: "learn c",
-        isComplete: false,
-        date: new Date()
-      }
-    ]
+    this.completedTodos = []
+    this.todos = []
    }
 
    getTodos = ()=>{
     
     return of(this.todos)
    }
+   getCompletedTodos = ()=>{
+    
+    return of(this.completedTodos)
+   }
    
-   addTodod(todo: Todo){
+   addTodo(todo: Todo){
     this.todos.push(todo);
    }
 
    changeStatus(todo:Todo){
-    this.todos.map(e=>{
-      if(e.id==todo.id){
-        e.isComplete = !e.isComplete
-      }
-    })
+    const indexOfTodo = this.todos.findIndex((currentObj)=>currentObj.id===todo.id);
+    let completedTodo = this.todos.splice(indexOfTodo,1);
+    this.completedTodos.push(todo);
+
    }
 
    deleteTodo(todo:Todo){
     const indexOfTodo = this.todos.findIndex((currentObj)=>currentObj.id===todo.id);
     this.todos.splice(indexOfTodo,1);
+   }
+
+   deleteCompletedTod(todo:Todo){
+    const indexOfTodo = this.completedTodos.findIndex((currentObj)=>currentObj.id===todo.id);
+    this.completedTodos.splice(indexOfTodo,1);
    }
 }
